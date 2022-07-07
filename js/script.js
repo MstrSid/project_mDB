@@ -15,12 +15,52 @@
 'use strict';
 
 const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против..."
-    ]
+	movies: [
+		"Логан",
+		"Лига справедливости",
+		"Ла-ла лэнд",
+		"Одержимость",
+		"Скотт Пилигрим против..."
+	]
 };
+
+removeAds('.promo__adv');
+replaceGenre('.promo__genre');
+replaceBg('.promo__bg');
+createFilmList('.promo__interactive-list')
+
+function removeAds(blockClassName) {
+	const removedBlock = document.querySelector(blockClassName);
+	const fixedElem = removedBlock.previousElementSibling.className;
+	removedBlock.remove();
+	setWidthAfterAds(`.${fixedElem}`);
+}
+
+function setWidthAfterAds(blockClassName) {
+	const fixBlock = document.querySelector(blockClassName);
+	fixBlock.style.cssText = 'width: calc(100% - 300px);';
+}
+
+function replaceGenre(elemSelector) {
+	const elem = document.querySelector(elemSelector);
+	elem.innerText = `драма`;
+}
+
+function replaceBg(elemSelector) {
+	const elem = document.querySelector(elemSelector);
+	elem.style.cssText = `background: url(../img/bg.jpg) center top/cover no-repeat;`;
+}
+
+function createFilmList(elemSelector) {
+	const elem = document.querySelector(elemSelector);
+	elem.innerHTML = ``;
+	movieDB['movies'].sort();
+	movieDB['movies'].forEach((item, i) => {
+		let filmElem = document.createElement('li');
+		filmElem.innerHTML = `<li class="promo__interactive-item">${i+1}. ${item}
+                            <div class="delete"></div>
+                        </li>`;
+		elem.append(filmElem);
+	});
+}
 
