@@ -27,7 +27,7 @@ const movieDB = {
 removeAds('.promo__adv');
 replaceGenre('.promo__genre');
 replaceBg('.promo__bg');
-createFilmList('.promo__interactive-list')
+createFilmList('.promo__interactive-list');
 
 function removeAds(blockClassName) {
 	const removedBlock = document.querySelector(blockClassName);
