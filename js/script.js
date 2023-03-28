@@ -17,13 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	bg.style.background = 'url(./img/bg.jpg)';
 
 	const movieDB = {
-		movies: [
-			'Логан',
-			'Лига справедливости',
-			'Ла-ла лэнд',
-			'Одержимость',
-			'Скотт Пилигрим против...'
-		]
+		movies: {
+			'Логан': 'false',
+			'Лига справедливости': 'false',
+			'Ла-ла лэнд': 'false',
+			'Одержимость': 'false',
+			'Скотт Пилигрим против...': 'false',
+		}
 	};
 
 	showFilms(movieDB, filmList, 'delete', 'promo__interactive-item');
@@ -32,9 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	btn.addEventListener('click', event => {
 		event.preventDefault();
 		const filmAdded = inputFilm.value;
-		movieDB.movies.push(filmAdded);
+		movieDB.movies[filmAdded]= `${checkFav(setFav, 'checkbox')}`;
 		showFilms(movieDB, filmList, 'delete', 'promo__interactive-item');
-		checkFav(setFav, 'checkbox');
 	});
 
 	filmList.addEventListener('click', event => {
@@ -46,15 +45,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function showFilms(obj, filmList, classDel, classLi) {
-	const list = obj.movies.sort();
+	const list = Object.keys(obj.movies).sort();
 	filmList.innerHTML = '';
 	for (let i = 0; i < list.length; i++) {
 		const li = document.createElement('li');
 		li.classList.add(classLi);
 		li.textContent = `${i + 1}) ${trimName(list[i])}`;
+		if(obj.movies[list[i]] === 'true'){
+			const fav = document.createElement('div');
+			fav.innerHTML = '&nbsp;&hearts;';
+			li.append(fav);
+		}
 		const div = document.createElement('div');
 		div.classList.add(classDel);
 		li.append(div);
+		li.style.display = 'flex';
 		filmList.append(li);
 	}
 }
@@ -64,11 +69,14 @@ function trimName(filmName) {
 }
 
 function checkFav(listElems, typeElem){
+	let fav = false;
 	listElems.forEach(item => {
 		if(item.type === typeElem && item.checked === true) {
 			console.log('Добавляем любимый фильм');
-		}
+			fav = true;
+		} else fav = false;
 	});
+	return fav;
 }
 
 function delMovie(obj, event, parent){
