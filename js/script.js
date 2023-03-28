@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const movieDB = {
 		movies: {
-			'Логан': 'false',
-			'Лига справедливости': 'false',
+			'Логан': 'true',
+			'Лига справедливости': 'true',
 			'Ла-ла лэнд': 'false',
 			'Одержимость': 'false',
 			'Скотт Пилигрим против...': 'false',
