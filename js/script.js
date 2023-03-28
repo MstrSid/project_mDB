@@ -74,8 +74,7 @@ function checkFav(listElems, typeElem){
 function delMovie(obj, event, parent){
 	const arrayFilms = obj.movies.sort();
 	const delBtnNodeList = parent.querySelectorAll('.delete');
-	const delBtnArray = [...delBtnNodeList];
-	delBtnArray.forEach((item, i) => {
+	delBtnNodeList.forEach((item, i) => {
 		if(item === event){
 			item.parentElement.remove();
 			arrayFilms.splice(i,1);
